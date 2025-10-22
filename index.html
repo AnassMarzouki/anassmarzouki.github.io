@@ -3,52 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anass Marzouki | GIS & Engineering</title>
+  <title>Anass Marzouki | GIS & Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
-      background-color: #000;
-      color: #00ff66;
-      font-family: "Lucida Console", Monaco, monospace;
+      font-family: "Inter", sans-serif;
+      background: #f2f2f2;
+      color: #222;
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     header {
-      background-color: #001a00;
-      color: #00ff99;
+      background: linear-gradient(135deg, #2e3a59, #1e2a44);
+      color: white;
       text-align: center;
-      padding: 2.5rem 1rem;
-      border-bottom: 2px solid #00ff66;
+      padding: 3rem 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
 
     header h1 {
       margin: 0;
-      font-size: 2rem;
-      text-shadow: 0 0 10px #00ff66;
+      font-size: 2.4rem;
+      font-weight: 600;
     }
 
     header p {
-      margin: 0.5rem 0 0;
-      font-size: 1rem;
+      margin: 0.8rem 0 0;
+      font-size: 1.1rem;
       opacity: 0.9;
     }
 
     nav {
       text-align: center;
-      background: #002200;
+      background: #e0e0e0;
       padding: 0.75rem;
-      border-bottom: 1px solid #00ff66;
+      border-bottom: 1px solid #ccc;
     }
 
     nav a {
-      color: #00ff99;
+      color: #1e3a8a;
       text-decoration: none;
       margin: 0 1rem;
+      font-weight: 600;
     }
 
     nav a:hover {
-      color: #ffffff;
-      text-shadow: 0 0 8px #00ff66;
+      text-decoration: underline;
+      color: #0f172a;
     }
 
     section {
@@ -58,56 +60,65 @@
     }
 
     h2 {
-      color: #00ff99;
-      border-bottom: 2px solid #00ff66;
-      padding-bottom: 0.25rem;
-      text-shadow: 0 0 5px #00ff33;
+      color: #1e3a8a;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 0.3rem;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
     }
 
     .project {
-      background: #001a00;
-      border: 1px solid #00ff66;
-      padding: 1rem;
-      border-radius: 8px;
+      background: white;
+      border: 1px solid #ddd;
+      padding: 1.2rem;
+      border-radius: 10px;
       margin-bottom: 1rem;
-      box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+      transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .project:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .project h3 {
       margin-top: 0;
-      color: #00ff99;
+      color: #1e3a8a;
     }
 
     .project a {
-      color: #00ffcc;
+      color: #2563eb;
       text-decoration: none;
+      font-weight: 500;
     }
 
     .project a:hover {
       text-decoration: underline;
-      color: #ffffff;
     }
 
-    ul li {
-      margin-bottom: 0.5rem;
+    ul {
+      padding-left: 1.2rem;
     }
 
     footer {
       text-align: center;
-      background: #001100;
-      color: #00cc66;
+      background: #1e2a44;
+      color: #ccc;
       padding: 1.5rem 0;
       margin-top: 3rem;
       font-size: 0.9rem;
-      border-top: 1px solid #00ff66;
     }
 
-    a {
-      color: #00ff99;
+    footer a {
+      color: #90cdf4;
+      text-decoration: none;
     }
 
-    a:hover {
-      color: #ffffff;
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -127,8 +138,15 @@
 
 <section id="about">
   <h2>About</h2>
-  <p>Hello! I'm <strong>Anass Marzouki</strong>, an architect and GIS engineer passionate about geospatial technologies, digital mapping, and urban planning. I work with tools like <em>Mapbender</em>, <em>QGIS</em>, and <em>PostGIS</em> to create spatial analysis platforms and visualizations.</p>
-  <p>This page showcases my projects, research, and personal explorations in GIS, architecture, and data visualization.</p>
+  <p>
+    Hello! I'm <strong>Anass Marzouki</strong>, an architect and GIS engineer passionate about spatial data,
+    digital mapping, and sustainable urban planning. I work with open-source tools such as
+    <em>Mapbender</em>, <em>QGIS</em>, and <em>PostGIS</em> to develop mapping applications and perform
+    geographic analysis for research and development projects.
+  </p>
+  <p>
+    This website presents my professional work, projects, and academic contributions in GIS and architecture.
+  </p>
 </section>
 
 <section id="projects">
@@ -136,19 +154,28 @@
 
   <div class="project">
     <h3>Mapbender Deployment on VPS</h3>
-    <p>Setup and configuration of Mapbender on a private VPS (Debian) for spatial data services — including map visualization, user management, and WMS/WFS integration.</p>
+    <p>
+      Configured and deployed <em>Mapbender</em> on a private VPS environment for interactive spatial data
+      visualization, WMS/WFS services, and user access management.
+    </p>
     <a href="#">→ View details</a>
   </div>
 
   <div class="project">
     <h3>Morocco 1km Grid Mapping</h3>
-    <p>Computation and visualization of a 1×1 km national grid for Morocco, integrating land use data and built-up area detection using open satellite imagery.</p>
+    <p>
+      Developed a 1×1 km grid covering Morocco, integrating land-use and built-up area data extracted from
+      open satellite imagery for spatial analysis and regional planning.
+    </p>
     <a href="#">→ View on GitHub</a>
   </div>
 
   <div class="project">
     <h3>Urban Morphology Analysis</h3>
-    <p>Study of building patterns in Moroccan cities using QGIS and Python for morphological indicators and density metrics.</p>
+    <p>
+      A spatial analysis of building density and urban form across Moroccan cities using QGIS and Python for
+      morphological metrics and visualization.
+    </p>
     <a href="#">→ Learn more</a>
   </div>
 </section>
@@ -156,8 +183,8 @@
 <section id="publications">
   <h2>Publications & Talks</h2>
   <ul>
-    <li>“Spatial Planning and GIS in the Moroccan Context” – Presented at UIR & UCLA Joint Conference, 2024.</li>
-    <li>“Integrating Open Data into Local Urban Design” – forthcoming article.</li>
+    <li><strong>“Spatial Planning and GIS in the Moroccan Context”</strong> – Presented at UIR & UCLA Joint Conference, 2024.</li>
+    <li><strong>“Integrating Open Data into Local Urban Design”</strong> – forthcoming article.</li>
   </ul>
 </section>
 
@@ -169,7 +196,8 @@
 </section>
 
 <footer>
-  © <span id="year"></span> Anass Marzouki — Built with 💚 on GitHub Pages
+  © <span id="year"></span> Anass Marzouki — Built with GitHub Pages |
+  <a href="https://gis.logilynx.com" target="_blank">gis.logilynx.com</a>
 </footer>
 
 <script>
@@ -178,4 +206,5 @@
 
 </body>
 </html>
+
 
