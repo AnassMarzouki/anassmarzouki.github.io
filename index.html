@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anass Marzouki | Assistant Professor at Université Internationale de Rabat</title>
+  <title>Anass Marzouki | GIS & Architecture</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -65,10 +65,25 @@
       padding-bottom: 0.3rem;
       font-size: 1.4rem;
       margin-bottom: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    p {
-      font-size: 1rem;
+    .dropdown-icon {
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .rotate {
+      transform: rotate(90deg);
+    }
+
+    .dropdown-content {
+      display: none;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
     }
 
     .project {
@@ -126,8 +141,7 @@
 
 <header>
   <h1>Anass Marzouki</h1>
-  <p>Assistant Professor at International University of Rabat (UIR)</p>
-  <p>GIS / Remote Sensing Specialist | Spatial Data | Open Source Mapping</p>
+  <p>Architect & GIS Engineer | Spatial Data | Open Source Mapping</p>
 </header>
 
 <nav>
@@ -140,9 +154,9 @@
 <section id="about">
   <h2>About</h2>
   <p>
-    Hello! I'm <strong>Anass Marzouki</strong>, an Geomatic specialist passionate about spatial data,
+    Hello! I'm <strong>Anass Marzouki</strong>, an architect and GIS engineer passionate about spatial data,
     digital mapping, and sustainable urban planning. I work with open-source tools such as
-     <em>QGIS</em>, and <em>PostGIS</em> to develop mapping applications and perform
+    <em>Mapbender</em>, <em>QGIS</em>, and <em>PostGIS</em> to develop mapping applications and perform
     geographic analysis for research and development projects.
   </p>
   <p>
@@ -151,42 +165,49 @@
 </section>
 
 <section id="projects">
-  <h2>Projects</h2>
+  <h2 onclick="toggleDropdown('projectsContent', this)">
+    Projects <span class="dropdown-icon">▶</span>
+  </h2>
+  <div id="projectsContent" class="dropdown-content">
+    <div class="project">
+      <h3>Mapbender Deployment on VPS</h3>
+      <p>
+        Configured and deployed <em>Mapbender</em> on a private VPS environment for interactive spatial data
+        visualization, WMS/WFS services, and user access management.
+      </p>
+      <a href="#">→ View details</a>
+    </div>
 
-  <div class="project">
-    <h3>Mapbender Deployment on VPS</h3>
-    <p>
-      Configured and deployed <em>Mapbender</em> on a private VPS environment for interactive spatial data
-      visualization, WMS/WFS services, and user access management.
-    </p>
-    <a href="#">→ View details</a>
-  </div>
+    <div class="project">
+      <h3>Morocco 1km Grid Mapping</h3>
+      <p>
+        Developed a 1×1 km grid covering Morocco, integrating land-use and built-up area data extracted from
+        open satellite imagery for spatial analysis and regional planning.
+      </p>
+      <a href="#">→ View on GitHub</a>
+    </div>
 
-  <div class="project">
-    <h3>Morocco 1km Grid Mapping</h3>
-    <p>
-      Developed a 1×1 km grid covering Morocco, integrating land-use and built-up area data extracted from
-      open satellite imagery for spatial analysis and regional planning.
-    </p>
-    <a href="#">→ View on GitHub</a>
-  </div>
-
-  <div class="project">
-    <h3>Urban Morphology Analysis</h3>
-    <p>
-      A spatial analysis of building density and urban form across Moroccan cities using QGIS and Python for
-      morphological metrics and visualization.
-    </p>
-    <a href="#">→ Learn more</a>
+    <div class="project">
+      <h3>Urban Morphology Analysis</h3>
+      <p>
+        A spatial analysis of building density and urban form across Moroccan cities using QGIS and Python for
+        morphological metrics and visualization.
+      </p>
+      <a href="#">→ Learn more</a>
+    </div>
   </div>
 </section>
 
 <section id="publications">
-  <h2>Publications & Talks</h2>
-  <ul>
-    <li><strong>“Spatial Planning and GIS in the Moroccan Context”</strong> – Presented at UIR & UCLA Joint Conference, 2024.</li>
-    <li><strong>“Integrating Open Data into Local Urban Design”</strong> – forthcoming article.</li>
-  </ul>
+  <h2 onclick="toggleDropdown('pubsContent', this)">
+    Publications & Talks <span class="dropdown-icon">▶</span>
+  </h2>
+  <div id="pubsContent" class="dropdown-content">
+    <ul>
+      <li><strong>“Spatial Planning and GIS in the Moroccan Context”</strong> – Presented at UIR & UCLA Joint Conference, 2024.</li>
+      <li><strong>“Integrating Open Data into Local Urban Design”</strong> – forthcoming article.</li>
+    </ul>
+  </div>
 </section>
 
 <section id="contact">
@@ -203,9 +224,20 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleDropdown(id, element) {
+    const content = document.getElementById(id);
+    const icon = element.querySelector(".dropdown-icon");
+    const isVisible = content.style.display === "block";
+    document.querySelectorAll(".dropdown-content").forEach(div => div.style.display = "none");
+    document.querySelectorAll(".dropdown-icon").forEach(i => i.classList.remove("rotate"));
+
+    if (!isVisible) {
+      content.style.display = "block";
+      icon.classList.add("rotate");
+    }
+  }
 </script>
 
 </body>
 </html>
-
-
