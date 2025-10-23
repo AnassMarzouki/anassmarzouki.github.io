@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anass Marzouki | Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f2f2f2;
+      color: #222;
+      margin: 0;
+      line-height: 1.7;
+    }
 
+    .publication {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .publication button {
+      background: none;
+      border: none;
+      text-align: left;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #004080;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .publication button:hover {
+      color: #0077cc;
+    }
+    .abstract {
+      display: none;
+      margin-top: 8px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-left: 3px solid #004080;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2e3a59, #1e2a44);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 0.8rem 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      text-align: center;
+      background: #e0e0e0;
+      padding: 0.75rem;
+      border-bottom: 1px solid #ccc;
+    }
+
+    nav a {
+      color: #1e3a8a;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #0f172a;
+    }
+
+    section {
+      max-width: 850px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      color: #1e3a8a;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 0.3rem;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dropdown-icon {
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .rotate {
+      transform: rotate(90deg);
+    }
+
+    .dropdown-content {
+      display: none;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .project {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .project:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .project h3 {
+      margin-top: 0;
+      color: #1e3a8a;
+    }
+
+    .project a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .project a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    footer {
+      text-align: center;
+      background: #1e2a44;
+      color: #ccc;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #90cdf4;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Anass Marzouki</h1>
+  <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+</header>
+
+<nav>
+  <a href="https://anassmarzouki.github.io/">Home</a>
+  <a href="https://anassmarzouki.github.io/about.html">About</a>
+  <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+  <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+</nav>
+
+<section class="publication">
+  <h2>Publications</h2>
+  <div class="publication">
+    <button>Marzouki, A., & Dridri, A. (2025). PyGeoRS: a QGIS plugin for automating Landsat data processing in environmental mapping. <i>Earth Science Informatics, 18(1), 1–12.</i></button>
+    <div class="abstract">
+	This paper discusses the development of PyGeoRS, a Python-based QGIS plugin designed to automate remote sensing tasks for environmental mapping using Landsat 8 and 9 data. PyGeoRS simplifies complex processes using data from Landsat 8 and 9 satellites, facilitating tasks such as Principal and Independent Component Analysis, band ratios, indices calculation, false-color image generation, and Optimum Index Factor calculation. A key advantage of PyGeoRS is its ability to significantly enhance processing speed, offering a 40–60% improvement compared to other remote sensing software, which optimizes workflow efficiency. Additionally, as an open-access tool, PyGeoRS broadens the availability of advanced remote sensing capabilities to users with varying levels of access to technology. While this version supports only Landsat data, future expansions are planned to include additional sensors, further extending PyGeoRS’s applicability in remote sensing and mapping tasks.
+	<p><strong><a href="https://link.springer.com/article/10.1007/s12145-024-01522-0" target="_blank" rel="noopener">Read full paper at Earth Science Informatics (Springer)</a></strong></p>
+	</div>
+	
+  </div>
+
+  <div class="publication">
+    <button>Marzouki, A., & Dridri, A. (2024). Dolomite, quartzite, and sand indices defined for PRISMA hyperspectral data: Application to the Tamlalet inlier (Eastern High Atlas, Morocco). <i>Advances in Space Research, 74(12), 8792–8806.</i></button>
+    <div class="abstract">
+	The present work discusses the development of three novel spectral indices for PRISMA data. The Hyperspectral Dolomite Index (HDI) using B2320nm and B2349nm bands, the Hyperspectral Sand Index (HSI) based on the visible B515nm and B596nm bands, and the Hyperspectral Quartzite Index (HQI) using a combination of Relative Band Depths in B2167nm and B2206nm bands. The outputs of the three indices are grayscale images, where the brightest pixels represent the indices target. Applying HDI on PRISMA image of Tamlalet inlier (Moroccan Eastern High Atlas) led to discriminate the dolomites from lacustrine limestones and bare soils. HDI also suggests rectifying the local geological map by replacing limestones with dolomites in Jbel Ain Chair. HQI highlights quartz-rich rocks and provides better results than ASTER TIR indices. HSI can discriminate sand dunes from bare soils without being disturbed by vegetation. Dolomite, Quartzite, and Sand Hyperspectral indices show an overall accuracy of 91.2 %, 97.8 %, and 91.5 %, respectively. These indices could be adapted to other hyperspectral data having the required wavelengths.
+	<p><strong><a href="https://www.sciencedirect.com/science/article/abs/pii/S0273117724010044" target="_blank" rel="noopener">Read full paper at Advances in Space Research (Elsevier)</a></strong></p>
+
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Akoudad, A., El Asmi, H., El Qandil, M., Zian, A., Senhaji, A. S., Zandar, S., Darkik, I., Marzouki, A., & Bargach, K. (2024). The Role of Geological and Geotechnical Factors in Shale Slope Instability: Case of Landslides on Road Embankments (Tizi Ouadrene Sector–Rif Extern, Morocco). <i>The Iraqi Geological Journal, 83–97.</i></button>
+    <div class="abstract">
+	Constructing roads in geologically unstable regions such as northern Morocco poses a major challenge. The Tizi Ouadrene sector, located in the Rif External Nappe of the Rif Belt, exemplifies a significant complexity in this issue, with a risk of landslides threatening the road embankments in this area. This study aims to characterize the frequent Cretaceous shales in the study area and analyze the landslides that have occurred on the road embankments cut into these shales. It examines the role of lithology, geometry, tectonics, human activity, and water in these landslides. The geological structure of slopes and their geometric configuration are crucial factors in determining the occurrence, distribution, and other characteristics of these landslides. Defects are controlled by the relative position of sedimentary and tectonic discontinuities, as well as the relative abundance of indurated shales compared to crushed ones. Crushed shales are susceptible to rotational slides, while the indurated ones are prone to planar and wedge sliding. The latter are mainly associated with bedding planes, particularly those oriented N65-80 with slopes facing south and SSE, as well as NW-SE and NE-SW-trending fractures. Hydrological, tectonic, and anthropogenic factors also contribute to the instability.
+	<p><strong><a href="https://www.igj-iraq.org/igj/index.php/igj/article/view/1969" target="_blank" rel="noopener">Read full paper at The Iraqi Geological Journal</a></strong></p>
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Marzouki, A., & Dridri, A. (2023). Lithological discrimination and structural lineaments extraction using Landsat 8 and ASTER data: a case study of Tiwit (Anti-Atlas, Morocco). <i>Environmental Earth Sciences, 82(5), 125.</i></button>
+    <div class="abstract">
+	The present work reveals the potential of Landsat 8 and ASTER imagery in the lithological discrimination and structural lineaments extraction in the Tiwit region (Jbel Saghro). Various remote sensing and image processing techniques were applied to the Landsat 8 and ASTER scenes: False-color composites (RGB 751 & 531), Principal Component Analysis (PCA 653 & 821), Minimum Noise Fraction (MNF 643 & 541), and Independent Component Analysis (ICA 137 & 235). These techniques discriminate the granitic formations (Isk-n-Alla, Mimasmarane, Ibantarn, and Ikniwn), the rhyolitic and ignimbrite formation (Amtattouch, Ouzarzamand Assaka), and other various rock types (aphanitic basalts, sandstones, conglomerates, etc.). Maximum Likelihood, Spectral Angle Mapper, and Mahalanobis distance classifiers show an overall accuracy of 88%, 56%, and 82.6%, respectively, for Landsat 8. ASTER data show a better result in classification with an overall accuracy of 90.6%, 84%, and 88% for the same classifiers. Structural lineaments are extracted using manual (visual interpretation) and automatique (LINE algorithm) approaches on both datasets. The extracted lineaments show NE-SW, E-W, and ENE-WSW trends for ASTER and Landsat 8 data, these results are consistent with the geologic map of Tiwit. Ultimately, the study demonstrates that ASTER data is more effective for lithological discrimination and structural lineaments mapping.
+	<p><strong><a href="https://link.springer.com/article/10.1007/s12665-023-10831-4" target="_blank" rel="noopener">Read full paper at Environmental Earth Sciences</a></strong></p>
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Naouadir, I., Dridri, A., El Asmi, H., Marzouki, A., Chellai, E. H., Ettaki, M., ... & Naouadir, I. (2023). Coupling Field Investigations with the Contribution of Remote Sensing and GIS for the Moroccan Middle Atlas Karst: A Case Study of the El Menzel Causse. <i>The Iraqi Geological Journal, 19–35.</i></button>
+    <div class="abstract">
+	Little work has been done on the processes that control karstic phenomena in the Causse of El Menzel. This carbonate section of the Moroccan tabular Middle Atlas has undergone significant karstification due to favorable conditions that contribute to good karstification potential. Our field and remote sensing results confirm the tectogenetic nature of a set of expressions found in the Causse. The maps produced show good agreement between the structural, fluvial, and karstic network, given that the large NE-SW oriented faults in the sector played an inhibiting role in the triggering of karstic processes during the different phases of the Alpine cycle and neotectonics: on the one hand by the fact of weakening the liasic carbonate series sensitivity to dissolution at faulted zones and on the other hand by guiding the action of the external phenomena causing incision and fluvial erosion, forming a system of valleys which simultaneously coincides with the genesis of the karstic forms found in the Causse of El Menzel.
+	<p><strong><a href="https://www.igj-iraq.org/igj/index.php/igj/article/view/1969" target="_blank" rel="noopener">Read full paper at The Iraqi Geological Journal</a></strong></p>
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Marzouki, A., & Dridri, A. (2022). Normalized Difference Enhanced Sand Index for desert sand dunes detection using Sentinel-2 and Landsat 8 OLI data, application to the north of Figuig, Morocco. <i>Journal of Arid Environments, 198, 104693.</i></button>
+    <div class="abstract">
+	This paper discusses developing a novel spectral index for desert sand dunes detection using four bands from Sentinel-2 data. This index, called Normalized Difference Enhanced Sand Index (NDESI), uses the blue band (492 nm), the red (664 nm) or the Vegetation Red Edge (VRE) band (782 nm), and two of the Shortwave Infrared (SWIR) bands (1613 and 2202 nm) to generate a grayscale image, where DN values are within −2 to 2. The lowest and highest values represent water bodies and sand dunes, respectively. A threshold calculation technique was used to generate a unique threshold for each image. This index application on several images covering the northern region of Figuig city seems to perfectly highlight sand dunes all over the image, with an overall accuracy of 97.9% and a kappa coefficient of 83.4%. This index is adapted for Landsat 8 data and can track sand dunes change over time.
+	<p><strong><a href="https://www.sciencedirect.com/science/article/pii/S0140196321002597" target="_blank" rel="noopener">Read full paper at Journal of Arid Environments</a></strong></p>
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Ech-charay, K., Boumir, K., Ouarhache, D., Ouaskou, M., & Marzouki, A. (2022). The Geoheritage of the South-Eastern Frontal Zone of the Middle Atlas (Morocco): First Inventory and Assessment. <i>Geoheritage, 14(4), 103.</i></button>
+    <div class="abstract">
+	The frontal zone of the south-eastern Middle Atlas is a natural barrier dominating the Middle Moulouya plain. It corresponds to the anticlinal ridge, the southernmost and highest of the Middle Atlas, with the famous Jbel Bou Naceur, which reaches 3326 m, and Jbel Tsiouant (2467 m). Jbel Bou Naceur represents a particular ecosystem of the high mountains. Its biodiversity is rich and varied so much that it has been classified as a Site of Biological and Ecological Interest. This area is formed mainly by limestone, dolomite, and marl deposits from the Jurassic period, where tectonic and erosion have shaped remarkable landscapes. Our study consists of a first inventory and assessment of geosites and geomorphosites between the Jbel Tsiouant and the Jbel Bou Naceur. Geosites and geomorphosites are classified and inventoried by adopting a new assessment approach resulting from the merger of two recent methodologies, modified and adapted to our project. Eleven geosites and eleven geomorphosites were selected. For each site, the scientific, educational, geotouristic, ecological, cultural, and aesthetic values, the potential for use, and the risk of degradation are quantified. The aim is to facilitate interpretation for eventual geoconservation. The present work, which contributes to the preservation of this rich geodiversity, could constitute a database for the future Geopark project that the national and regional authorities intend to create in the Middle Atlas.
+	<p><strong><a href="https://link.springer.com/article/10.1007/s12371-022-00736-2" target="_blank" rel="noopener">Read full paper at Geoheritage</a></strong></p>
+	</div>
+  </div>
+
+  <div class="publication">
+    <button>Cherai, M., Marzouki, A., & Talbi, F. (2022). Mineralization-tectonic Relationship in the Jbel Tirremi Fluorite Mine (Taourirt Region–Eastern Morocco): Contribution of Remote Sensing for Geological Exploration. <i>Journal of Mines, Metals and Fuels, 70(5), 251–257.</i></button>
+    <div class="abstract">
+	The Tirremi fluorite deposit, located in the Taourirt region (Eastern Morocco), morphologically constitutes a mainly carbonate dome of the Jurassic age, crossed by numerous dykes of lamprophyric rocks of Eocene age. The tectonic study coupled with the study of lineaments extracted from band 2 of the sentinel-2 image shows that the main directions, in terms of frequency and size, are NE-SW and E-W to ENE-WSW. The other directions, N-S and NNW-SSE, are satellite faults with respect to the potential faults; but they are economically important since they give rise to fluorite-rich veins. Similarly, analysis of fracturing (faults, tension cracks, dykes, etc.) allows us to identify the Palaeostresses of stress responsible for the structuring of the Tirremi region. These phases, classified in chronological order based on field observations, are perfectly compatible and correlatable with previous work done in the area.
+	<p><strong><a href="https://www.academia.edu/download/92644432/21271.pdf" target="_blank" rel="noopener">Read full paper at Journal of Mines, Metals and Fuels</a></strong></p>
+	</div>
+  </div>
+  
+
+<footer>
+  © <span id="year"></span> Anass Marzouki |
+  <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleDropdown(id, element) {
+    const content = document.getElementById(id);
+    const icon = element.querySelector(".dropdown-icon");
+    const isVisible = content.style.display === "block";
+    document.querySelectorAll(".dropdown-content").forEach(div => div.style.display = "none");
+    document.querySelectorAll(".dropdown-icon").forEach(i => i.classList.remove("rotate"));
+
+    if (!isVisible) {
+      content.style.display = "block";
+      icon.classList.add("rotate");
+    }
+  }
+</script>
+
+</body>
+</html>
