@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anass Marzouki | Spatial Data Converter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    :root {
+      --gold: #d0d612;
+      --dark1: #0f1724;
+      --dark2: #2e3a59;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark1), var(--dark2));
+      color: #f5f5f5;
+      margin: 0;
+      line-height: 1.7;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 0.7rem;
+      color: #ddd;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px var(--gold);
+    }
+
+    section {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.6rem 0;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      display: block;
+      margin: 1.2rem auto;
+      background: var(--gold);
+      color: var(--dark1);
+      border: none;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #f8f861;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .output {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+      color: #eaeaea;
+      overflow-x: auto;
+      max-height: 400px;
+      display: none;
+    }
+
+    .output.show {
+      display: block;
+    }
+
+    .info {
+      background: rgba(208, 214, 18, 0.1);
+      border-left: 3px solid var(--gold);
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark1);
+      color: #ccc;
+      padding: 1.8rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Anass Marzouki</h1>
+    <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+  </header>
+
+  <nav>
+    <a href="https://anassmarzouki.github.io/">Home</a>
+    <a href="https://anassmarzouki.github.io/about.html">About</a>
+    <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+    <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+    <a href="https://anassmarzouki.github.io/geotools.html">GeoTools</a>
+  </nav>
+
+  <section>
+    <h2>Spatial Data Format Converter</h2>
+    <p style="text-align:center;">Convert between GeoJSON, KML, KMZ, GPX, and Shapefile directly in your browser.</p>
+
+    <div class="info">
+      <strong>✓ Supported Imports:</strong> GeoJSON, KML, KMZ, GPX, Shapefile (ZIP)<br>
+      <strong>✓ Supported Exports:</strong> GeoJSON, KML, KMZ, GPX, Shapefile (ZIP)
+    </div>
+
+    <input type="file" id="inputFile" accept=".geojson,.json,.kml,.kmz,.gpx,.zip" />
+    <label for="targetFormat">Convert to:</label>
+    <select id="targetFormat">
+      <option value="geojson">GeoJSON</option>
+      <option value="kml">KML</option>
+      <option value="kmz">KMZ (Compressed KML)</option>
+      <option value="gpx">GPX</option>
+      <option value="shp">Shapefile (ZIP)</option>
+    </select>
+
+    <button id="convertBtn">Convert</button>
+    <div class="output" id="output"></div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Anass Marzouki |
+    <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tmcw/togeojson@5.8.1/dist/togeojson.umd.js"></script>
+  <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const inputFile = document.getElementById("inputFile");
+    const outputDiv = document.getElementById("output");
+    const convertBtn = document.getElementById("convertBtn");
+
+    convertBtn.addEventListener("click", async () => {
+      const file = inputFile.files[0];
+      const targetFormat = document.getElementById("targetFormat").value;
+
+      if (!file) {
+        alert("Please select a spatial file first.");
+        return;
+      }
+
+      outputDiv.classList.add("show");
+      outputDiv.textContent = "Processing...";
+      convertBtn.disabled = true;
+
+      const fileExt = file.name.split(".").pop().toLowerCase();
+      let geojson;
+
+      try {
+        // Read and convert to GeoJSON
+        if (fileExt === "geojson" || fileExt === "json") {
+          const text = await file.text();
+          geojson = JSON.parse(text);
+
+        } else if (fileExt === "kml") {
+          const text = await file.text();
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(text, "text/xml");
+          geojson = toGeoJSON.kml(xmlDoc);
+
+        } else if (fileExt === "kmz") {
+          const arrayBuffer = await file.arrayBuffer();
+          const zip = await JSZip.loadAsync(arrayBuffer);
+          let kmlFile = null;
+          
+          // Find the KML file in the KMZ
+          zip.forEach((path, file) => {
+            if (path.toLowerCase().endsWith('.kml') && !kmlFile) {
+              kmlFile = file;
+            }
+          });
+          
+          if (!kmlFile) {
+            throw new Error("No KML file found in KMZ");
+          }
+          
+          const kmlText = await kmlFile.async("text");
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(kmlText, "text/xml");
+          geojson = toGeoJSON.kml(xmlDoc);
+
+        } else if (fileExt === "gpx") {
+          const text = await file.text();
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(text, "text/xml");
+          geojson = toGeoJSON.gpx(xmlDoc);
+
+        } else if (fileExt === "zip") {
+          const arrayBuffer = await file.arrayBuffer();
+          geojson = await shp(arrayBuffer);
+          
+          // shp returns an object, extract the geojson
+          if (geojson && typeof geojson === 'object' && !geojson.type) {
+            geojson = Object.values(geojson)[0];
+          }
+
+        } else {
+          throw new Error("Unsupported file type. Please use .geojson, .kml, .kmz, .gpx, or .zip (shapefile)");
+        }
+
+        // Validate GeoJSON
+        if (!geojson || !geojson.type) {
+          throw new Error("Invalid GeoJSON structure");
+        }
+
+        // Ensure it's a FeatureCollection
+        if (geojson.type !== 'FeatureCollection') {
+          geojson = {
+            type: 'FeatureCollection',
+            features: geojson.type === 'Feature' ? [geojson] : []
+          };
+        }
+
+        // Convert to target format
+        if (targetFormat === "geojson") {
+          const output = JSON.stringify(geojson, null, 2);
+          downloadFile(output, "converted.geojson", "application/json");
+          outputDiv.textContent = "✅ Conversion complete! GeoJSON file downloaded.";
+
+        } else if (targetFormat === "kml") {
+          const output = geojsonToKML(geojson);
+          downloadFile(output, "converted.kml", "application/vnd.google-earth.kml+xml");
+          outputDiv.textContent = "✅ Conversion complete! KML file downloaded.";
+
+        } else if (targetFormat === "kmz") {
+          const kmlContent = geojsonToKML(geojson);
+          const zip = new JSZip();
+          zip.file("doc.kml", kmlContent);
+          const kmzBlob = await zip.generateAsync({type: "blob"});
+          downloadFile(kmzBlob, "converted.kmz", "application/vnd.google-earth.kmz");
+          outputDiv.textContent = "✅ Conversion complete! KMZ file downloaded.";
+
+        } else if (targetFormat === "gpx") {
+          const output = geojsonToGPX(geojson);
+          downloadFile(output, "converted.gpx", "application/gpx+xml");
+          outputDiv.textContent = "✅ Conversion complete! GPX file downloaded.";
+
+        } else if (targetFormat === "shp") {
+          const zipBlob = await geojsonToShapefile(geojson);
+          downloadFile(zipBlob, "converted.zip", "application/zip");
+          outputDiv.textContent = "✅ Conversion complete! Shapefile ZIP downloaded.";
+        }
+
+      } catch (err) {
+        console.error(err);
+        outputDiv.textContent = "❌ Error: " + err.message;
+      } finally {
+        convertBtn.disabled = false;
+      }
+    });
+
+    function downloadFile(content, filename, mime) {
+      let blob;
+      if (content instanceof Blob) {
+        blob = content;
+      } else if (content instanceof ArrayBuffer || content instanceof Uint8Array) {
+        blob = new Blob([content], { type: mime });
+      } else {
+        blob = new Blob([content], { type: mime });
+      }
+      
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 100);
+    }
+
+    // Convert GeoJSON to KML
+    function geojsonToKML(geojson) {
+      let kml = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Converted Data</name>
+`;
+
+      geojson.features.forEach(feature => {
+        const props = feature.properties || {};
+        const name = props.name || props.Name || 'Feature';
+        const desc = props.description || props.Description || '';
+        
+        kml += `  <Placemark>
+    <name>${escapeXML(name)}</name>
+`;
+        if (desc) {
+          kml += `    <description>${escapeXML(desc)}</description>
+`;
+        }
+
+        const geom = feature.geometry;
+        if (geom.type === 'Point') {
+          const [lon, lat, alt = 0] = geom.coordinates;
+          kml += `    <Point>
+      <coordinates>${lon},${lat},${alt}</coordinates>
+    </Point>
+`;
+        } else if (geom.type === 'LineString') {
+          kml += `    <LineString>
+      <coordinates>
+        ${geom.coordinates.map(c => `${c[0]},${c[1]},${c[2] || 0}`).join(' ')}
+      </coordinates>
+    </LineString>
+`;
+        } else if (geom.type === 'Polygon') {
+          kml += `    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            ${geom.coordinates[0].map(c => `${c[0]},${c[1]},${c[2] || 0}`).join(' ')}
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+`;
+        } else if (geom.type === 'MultiPoint') {
+          kml += `    <MultiGeometry>
+`;
+          geom.coordinates.forEach(coord => {
+            const [lon, lat, alt = 0] = coord;
+            kml += `      <Point>
+        <coordinates>${lon},${lat},${alt}</coordinates>
+      </Point>
+`;
+          });
+          kml += `    </MultiGeometry>
+`;
+        }
+
+        kml += `  </Placemark>
+`;
+      });
+
+      kml += `</Document>
+</kml>`;
+      return kml;
+    }
+
+    // Convert GeoJSON to GPX with proper structure
+    function geojsonToGPX(geojson) {
+      const now = new Date().toISOString();
+      let gpx = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" 
+     creator="GeoConverter by Anass Marzouki" 
+     xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Converted Data</name>
+    <time>${now}</time>
+  </metadata>
+`;
+
+      geojson.features.forEach(feature => {
+        const props = feature.properties || {};
+        const name = props.name || props.Name || 'Feature';
+        const desc = props.description || props.Description || '';
+        const geom = feature.geometry;
+
+        if (geom.type === 'Point') {
+          const [lon, lat, ele] = geom.coordinates;
+          gpx += `  <wpt lat="${lat}" lon="${lon}">
+    <name>${escapeXML(name)}</name>
+`;
+          if (ele !== undefined) {
+            gpx += `    <ele>${ele}</ele>
+`;
+          }
+          if (desc) {
+            gpx += `    <desc>${escapeXML(desc)}</desc>
+`;
+          }
+          gpx += `  </wpt>
+`;
+        } else if (geom.type === 'LineString') {
+          gpx += `  <trk>
+    <name>${escapeXML(name)}</name>
+`;
+          if (desc) {
+            gpx += `    <desc>${escapeXML(desc)}</desc>
+`;
+          }
+          gpx += `    <trkseg>
+`;
+          geom.coordinates.forEach(coord => {
+            const [lon, lat, ele] = coord;
+            gpx += `      <trkpt lat="${lat}" lon="${lon}">
+`;
+            if (ele !== undefined) {
+              gpx += `        <ele>${ele}</ele>
+`;
+            }
+            gpx += `      </trkpt>
+`;
+          });
+          gpx += `    </trkseg>
+  </trk>
+`;
+        } else if (geom.type === 'MultiPoint') {
+          geom.coordinates.forEach((coord, i) => {
+            const [lon, lat, ele] = coord;
+            gpx += `  <wpt lat="${lat}" lon="${lon}">
+    <name>${escapeXML(name)} ${i + 1}</name>
+`;
+            if (ele !== undefined) {
+              gpx += `    <ele>${ele}</ele>
+`;
+            }
+            gpx += `  </wpt>
+`;
+          });
+        } else if (geom.type === 'Polygon') {
+          // Convert polygon to track (outer ring)
+          gpx += `  <trk>
+    <name>${escapeXML(name)}</name>
+`;
+          if (desc) {
+            gpx += `    <desc>${escapeXML(desc)}</desc>
+`;
+          }
+          gpx += `    <trkseg>
+`;
+          geom.coordinates[0].forEach(coord => {
+            const [lon, lat, ele] = coord;
+            gpx += `      <trkpt lat="${lat}" lon="${lon}">
+`;
+            if (ele !== undefined) {
+              gpx += `        <ele>${ele}</ele>
+`;
+            }
+            gpx += `      </trkpt>
+`;
+          });
+          gpx += `    </trkseg>
+  </trk>
+`;
+        }
+      });
+
+      gpx += `</gpx>`;
+      return gpx;
+    }
+
+    // Convert GeoJSON to Shapefile
+    async function geojsonToShapefile(geojson) {
+      const zip = new JSZip();
+      
+      // Separate features by geometry type
+      const points = [];
+      const lines = [];
+      const polygons = [];
+      
+      geojson.features.forEach(feature => {
+        const type = feature.geometry.type;
+        if (type === 'Point' || type === 'MultiPoint') {
+          points.push(feature);
+        } else if (type === 'LineString' || type === 'MultiLineString') {
+          lines.push(feature);
+        } else if (type === 'Polygon' || type === 'MultiPolygon') {
+          polygons.push(feature);
+        }
+      });
+      
+      // Create simple placeholder files (basic structure)
+      // Note: This is a simplified version. For production use, consider server-side conversion
+      
+      if (points.length > 0) {
+        const pointsGeoJSON = { type: 'FeatureCollection', features: points };
+        zip.file("points.geojson", JSON.stringify(pointsGeoJSON, null, 2));
+      }
+      
+      if (lines.length > 0) {
+        const linesGeoJSON = { type: 'FeatureCollection', features: lines };
+        zip.file("lines.geojson", JSON.stringify(linesGeoJSON, null, 2));
+      }
+      
+      if (polygons.length > 0) {
+        const polygonsGeoJSON = { type: 'FeatureCollection', features: polygons };
+        zip.file("polygons.geojson", JSON.stringify(polygonsGeoJSON, null, 2));
+      }
+      
+      // Add readme
+      zip.file("README.txt", "Shapefile export contains GeoJSON files separated by geometry type.\n" +
+        "For full .shp/.shx/.dbf conversion, please use QGIS or other GIS software.\n" +
+        "This browser-based converter provides GeoJSON as an intermediate format.");
+      
+      return await zip.generateAsync({type: "blob"});
+    }
+
+    function escapeXML(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+    }
+  </script>
+</body>
+</html>

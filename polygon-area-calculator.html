@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polygon Area Calculator | Anass Marzouki</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"
+  />
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    :root {
+      --gold: #d0d612;
+      --dark1: #0f1724;
+      --dark2: #2e3a59;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark1), var(--dark2));
+      color: #f5f5f5;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    header p {
+      margin-top: 0.7rem;
+      color: #ddd;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    section {
+      max-width: 950px;
+      margin: 2.5rem auto;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .controls button {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .controls button:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .controls button:active {
+      transform: translateY(0);
+    }
+
+    .controls button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    #results {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-label {
+      color: #ddd;
+      font-weight: 400;
+    }
+
+    .result-value {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .instruction {
+      text-align: center;
+      color: #ccc;
+      font-style: italic;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark1);
+      color: #ccc;
+      padding: 1.8rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+
+    /* Custom Leaflet Draw styles */
+    .leaflet-draw-toolbar a {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .leaflet-draw-actions a {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      color: #333 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Anass Marzouki</h1>
+    <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+  </header>
+
+  <nav>
+    <a href="https://anassmarzouki.github.io/">Home</a>
+    <a href="https://anassmarzouki.github.io/about.html">About</a>
+    <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+    <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+    <a href="https://anassmarzouki.github.io/geotools.html">GeoTools</a>
+  </nav>
+
+  <section>
+    <h2>Polygon Area Calculator</h2>
+    <p style="text-align:center">Draw polygons on the map to calculate their area in different units.</p>
+    
+    <div id="map"></div>
+
+    <div class="controls">
+      <button id="clearBtn">Clear All Polygons</button>
+      <button id="exportBtn">Export as GeoJSON</button>
+    </div>
+
+    <div class="instruction">
+      Click the polygon tool (<strong>⬟</strong>) on the map to start drawing. Click to add points, double-click to finish.
+    </div>
+
+    <div id="results" style="display: none;">
+      <h3 style="color: var(--gold); margin-top: 0;">Total Area</h3>
+      <div class="result-item">
+        <span class="result-label">Square Meters (m²)</span>
+        <span class="result-value" id="areaSqm">0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Square Kilometers (km²)</span>
+        <span class="result-value" id="areaSqkm">0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Hectares (ha)</span>
+        <span class="result-value" id="areaHa">0</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Acres</span>
+        <span class="result-value" id="areaAcres">0</span>
+      </div>
+      <div class="result-item" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--gold);">
+        <span class="result-label">Number of Polygons</span>
+        <span class="result-value" id="polyCount">0</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Anass Marzouki |
+    <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+  </footer>
+
+  <!-- JS Libraries via CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Initialize map
+    const map = L.map("map").setView([33.9716, -6.8498], 10);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    // Feature group to store drawn items
+    const drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    // Drawing control
+    const drawControl = new L.Control.Draw({
+      position: 'topright',
+      draw: {
+        polygon: {
+          allowIntersection: false,
+          showArea: true,
+          shapeOptions: {
+            color: '#d0d612',
+            weight: 3,
+            fillOpacity: 0.3
+          }
+        },
+        rectangle: {
+          shapeOptions: {
+            color: '#d0d612',
+            weight: 3,
+            fillOpacity: 0.3
+          }
+        },
+        circle: false,
+        circlemarker: false,
+        marker: false,
+        polyline: false
+      },
+      edit: {
+        featureGroup: drawnItems,
+        remove: true
+      }
+    });
+    map.addControl(drawControl);
+
+    // Event handlers
+    map.on(L.Draw.Event.CREATED, function (event) {
+      const layer = event.layer;
+      drawnItems.addLayer(layer);
+      calculateTotalArea();
+    });
+
+    map.on(L.Draw.Event.EDITED, function (event) {
+      calculateTotalArea();
+    });
+
+    map.on(L.Draw.Event.DELETED, function (event) {
+      calculateTotalArea();
+    });
+
+    // Calculate total area
+    function calculateTotalArea() {
+      let totalArea = 0;
+      let count = 0;
+
+      drawnItems.eachLayer(function (layer) {
+        if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+          const geojson = layer.toGeoJSON();
+          const area = turf.area(geojson);
+          totalArea += area;
+          count++;
+        }
+      });
+
+      if (count > 0) {
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('areaSqm').textContent = totalArea.toFixed(2);
+        document.getElementById('areaSqkm').textContent = (totalArea / 1000000).toFixed(4);
+        document.getElementById('areaHa').textContent = (totalArea / 10000).toFixed(4);
+        document.getElementById('areaAcres').textContent = (totalArea / 4046.86).toFixed(4);
+        document.getElementById('polyCount').textContent = count;
+      } else {
+        document.getElementById('results').style.display = 'none';
+      }
+    }
+
+    // Clear all polygons
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      if (confirm('Are you sure you want to clear all polygons?')) {
+        drawnItems.clearLayers();
+        calculateTotalArea();
+      }
+    });
+
+    // Export as GeoJSON
+    document.getElementById('exportBtn').addEventListener('click', function() {
+      const features = [];
+      let totalArea = 0;
+
+      drawnItems.eachLayer(function (layer) {
+        if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+          const geojson = layer.toGeoJSON();
+          const area = turf.area(geojson);
+          totalArea += area;
+          
+          geojson.properties = {
+            area_sqm: parseFloat(area.toFixed(2)),
+            area_sqkm: parseFloat((area / 1000000).toFixed(4)),
+            area_ha: parseFloat((area / 10000).toFixed(4)),
+            area_acres: parseFloat((area / 4046.86).toFixed(4))
+          };
+          
+          features.push(geojson);
+        }
+      });
+
+      if (features.length === 0) {
+        alert('No polygons to export. Please draw some polygons first.');
+        return;
+      }
+
+      const featureCollection = {
+        type: 'FeatureCollection',
+        properties: {
+          total_area_sqm: parseFloat(totalArea.toFixed(2)),
+          total_area_sqkm: parseFloat((totalArea / 1000000).toFixed(4)),
+          total_area_ha: parseFloat((totalArea / 10000).toFixed(4)),
+          total_area_acres: parseFloat((totalArea / 4046.86).toFixed(4)),
+          polygon_count: features.length,
+          created: new Date().toISOString()
+        },
+        features: features
+      };
+
+      const dataStr = JSON.stringify(featureCollection, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'polygon_areas_' + new Date().getTime() + '.geojson';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

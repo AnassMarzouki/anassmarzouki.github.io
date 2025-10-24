@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anass Marzouki | Coordinate Converter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    :root {
+      --gold: #d0d612;
+      --dark1: #0f1724;
+      --dark2: #2e3a59;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark1), var(--dark2));
+      color: #f5f5f5;
+      margin: 0;
+      line-height: 1.7;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 0.7rem;
+      color: #ddd;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px var(--gold);
+    }
+
+    section {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 0.6rem 1.2rem;
+      margin: 0 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--gold);
+      color: var(--dark1);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button.convert {
+      display: block;
+      margin: 1rem auto;
+      background: var(--gold);
+      color: var(--dark1);
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button.convert:hover {
+      background: #f8f861;
+    }
+
+    .output {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark1);
+      color: #ccc;
+      padding: 1.8rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Anass Marzouki</h1>
+    <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+  </header>
+
+  <nav>
+    <a href="https://anassmarzouki.github.io/">Home</a>
+    <a href="https://anassmarzouki.github.io/about.html">About</a>
+    <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+    <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+    <a href="https://anassmarzouki.github.io/geotools.html">GeoTools</a>
+  </nav>
+
+  <section>
+    <h2>Coordinate Converter</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="single">Single Coordinates</button>
+      <button class="tab-btn" data-tab="batch">Batch Coordinates</button>
+    </div>
+
+    <!-- Single Coordinate Conversion -->
+    <div id="single" class="tab-content active">
+      <h3>Single Coordinate Conversion</h3>
+      <label>Latitude (Decimal Degrees):</label>
+      <input type="number" step="any" id="latDD" placeholder="e.g. 34.12345">
+      <label>Longitude (Decimal Degrees):</label>
+      <input type="number" step="any" id="lonDD" placeholder="e.g. -6.78901">
+      <button class="convert" onclick="convertToDMS()">Convert to DMS</button>
+
+      <label>Latitude (DMS):</label>
+      <input type="text" id="latDMS" placeholder="e.g. 34° 7' 24.42&quot; N">
+      <label>Longitude (DMS):</label>
+      <input type="text" id="lonDMS" placeholder="e.g. 6° 47' 20.44&quot; W">
+      <button class="convert" onclick="convertToDD()">Convert to Decimal</button>
+
+      <div class="output" id="singleOutput"></div>
+    </div>
+
+    <!-- Batch Coordinate Conversion -->
+    <div id="batch" class="tab-content">
+      <h3>Batch Coordinate Conversion</h3>
+      <p>Enter coordinates in Decimal Degrees, one pair per line (latitude, longitude):</p>
+      <textarea id="batchInput" rows="6" placeholder="34.12345, -6.78901
+33.87654, -5.43210"></textarea>
+      <button class="convert" onclick="batchConvert()">Convert to DMS</button>
+      <div class="output" id="batchOutput"></div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Anass Marzouki |
+    <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Tab switching
+    const tabs = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        contents.forEach(c => c.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
+
+    // Conversion helpers
+    function toDMS(deg, type) {
+      const absolute = Math.abs(deg);
+      const d = Math.floor(absolute);
+      const m = Math.floor((absolute - d) * 60);
+      const s = ((absolute - d - m / 60) * 3600).toFixed(2);
+      const direction = deg >= 0 ? (type === 'lat' ? 'N' : 'E') : (type === 'lat' ? 'S' : 'W');
+      return `${d}° ${m}' ${s}" ${direction}`;
+    }
+
+    function toDecimal(dms, type) {
+      const regex = /(\d+)[°:\s]+(\d+)[′']+(\d+(?:\.\d+)?)[″"]?\s*([NSEW])?/i;
+      const parts = regex.exec(dms.trim());
+      if (!parts) return NaN;
+      let deg = parseFloat(parts[1]) + parseFloat(parts[2]) / 60 + parseFloat(parts[3]) / 3600;
+      const dir = parts[4];
+      if (dir === 'S' || dir === 'W') deg *= -1;
+      return deg;
+    }
+
+    function convertToDMS() {
+      const lat = parseFloat(document.getElementById("latDD").value);
+      const lon = parseFloat(document.getElementById("lonDD").value);
+      if (isNaN(lat) || isNaN(lon)) {
+        alert("Please enter valid decimal coordinates.");
+        return;
+      }
+      document.getElementById("latDMS").value = toDMS(lat, 'lat');
+      document.getElementById("lonDMS").value = toDMS(lon, 'lon');
+      document.getElementById("singleOutput").textContent =
+        `Converted to DMS:\nLatitude: ${toDMS(lat, 'lat')}\nLongitude: ${toDMS(lon, 'lon')}`;
+    }
+
+    function convertToDD() {
+      const latDMS = document.getElementById("latDMS").value;
+      const lonDMS = document.getElementById("lonDMS").value;
+      const lat = toDecimal(latDMS, 'lat');
+      const lon = toDecimal(lonDMS, 'lon');
+      if (isNaN(lat) || isNaN(lon)) {
+        alert("Please enter valid DMS coordinates.");
+        return;
+      }
+      document.getElementById("latDD").value = lat.toFixed(6);
+      document.getElementById("lonDD").value = lon.toFixed(6);
+      document.getElementById("singleOutput").textContent =
+        `Converted to Decimal Degrees:\nLatitude: ${lat.toFixed(6)}\nLongitude: ${lon.toFixed(6)}`;
+    }
+
+    function batchConvert() {
+      const input = document.getElementById("batchInput").value.trim();
+      if (!input) {
+        alert("Please enter at least one coordinate pair.");
+        return;
+      }
+      const lines = input.split("\n");
+      const results = lines.map(line => {
+        const [latStr, lonStr] = line.split(",").map(v => v.trim());
+        const lat = parseFloat(latStr);
+        const lon = parseFloat(lonStr);
+        if (isNaN(lat) || isNaN(lon)) return `Invalid: ${line}`;
+        return `${toDMS(lat, 'lat')}, ${toDMS(lon, 'lon')}`;
+      });
+      document.getElementById("batchOutput").textContent = results.join("\n");
+    }
+  </script>
+</body>
+</html>

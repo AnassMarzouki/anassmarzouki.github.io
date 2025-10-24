@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shapefile Metadata Viewer | Anass Marzouki</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    :root {
+      --gold: #d0d612;
+      --dark1: #0f1724;
+      --dark2: #2e3a59;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark1), var(--dark2));
+      color: #f5f5f5;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    header p {
+      margin-top: 0.7rem;
+      color: #ddd;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: 2.5rem auto;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    h2 {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    input[type="file"] {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      padding: 0.6rem;
+      width: 100%;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #metadata, #tableContainer {
+      margin-top: 1.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    #metadata p {
+      margin: 0.3rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+
+    th, td {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      text-align: left;
+      color: #fff;
+    }
+
+    th {
+      background: var(--gold);
+      color: #000;
+      cursor: pointer;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    #status {
+      margin-top: 1rem;
+      text-align: center;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark1);
+      color: #ccc;
+      padding: 1.8rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Anass Marzouki</h1>
+    <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+  </header>
+
+  <nav>
+    <a href="https://anassmarzouki.github.io/">Home</a>
+    <a href="https://anassmarzouki.github.io/about.html">About</a>
+    <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+    <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+    <a href="https://anassmarzouki.github.io/geotools.html">GeoTools</a>
+  </nav>
+
+  <section>
+    <h2>Shapefile Metadata & Attribute Viewer</h2>
+    <p style="text-align:center">Upload a <b>Shapefile (.zip)</b> to inspect its metadata and attribute table.</p>
+
+    <input type="file" id="fileInput" accept=".zip" />
+    <div id="status">No file loaded.</div>
+
+    <div id="metadata" style="display:none;">
+      <h3 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 0.3rem;">Metadata</h3>
+      <div id="metaContent"></div>
+    </div>
+
+    <div id="tableContainer" style="display:none;">
+      <h3 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 0.3rem;">Attribute Table</h3>
+      <div style="max-height:400px; overflow:auto;">
+        <table id="attributeTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Anass Marzouki |
+    <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+  </footer>
+
+  <!-- JS Libraries -->
+  <script src="https://unpkg.com/shpjs@latest/dist/shp.min.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const status = document.getElementById("status");
+    const fileInput = document.getElementById("fileInput");
+
+    fileInput.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      status.textContent = "Reading shapefile...";
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const geojson = await shp(arrayBuffer);
+
+        // Extract metadata
+        const features = geojson.features || [];
+        const geometryType = features[0]?.geometry?.type || "Unknown";
+        const bounds = getBoundingBox(features);
+        const layerName = file.name.replace(".zip", "");
+        const metaHTML = `
+          <p><b>Layer name:</b> ${layerName}</p>
+          <p><b>Feature count:</b> ${features.length}</p>
+          <p><b>Geometry type:</b> ${geometryType}</p>
+          <p><b>Bounding box:</b> [${bounds.join(", ")}]</p>
+        `;
+        document.getElementById("metadata").style.display = "block";
+        document.getElementById("metaContent").innerHTML = metaHTML;
+
+        // Build attribute table
+        if (features.length > 0 && features[0].properties) {
+          const props = Object.keys(features[0].properties);
+          let html = "<thead><tr>" + props.map(p => `<th>${p}</th>`).join("") + "</tr></thead><tbody>";
+          features.forEach(f => {
+            html += "<tr>" + props.map(p => `<td>${f.properties[p] ?? ""}</td>`).join("") + "</tr>";
+          });
+          html += "</tbody>";
+          const table = document.getElementById("attributeTable");
+          table.innerHTML = html;
+          document.getElementById("tableContainer").style.display = "block";
+        } else {
+          document.getElementById("tableContainer").style.display = "none";
+        }
+
+        status.textContent = "Shapefile loaded successfully.";
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Error: " + err.message;
+      }
+    });
+
+    function getBoundingBox(features) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      features.forEach(f => {
+        const coords = getCoords(f.geometry);
+        coords.forEach(([x, y]) => {
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+        });
+      });
+      return [minX.toFixed(5), minY.toFixed(5), maxX.toFixed(5), maxY.toFixed(5)];
+    }
+
+    function getCoords(geom) {
+      if (!geom) return [];
+      if (geom.type === "Point") return [geom.coordinates];
+      if (geom.type === "LineString" || geom.type === "MultiPoint") return geom.coordinates;
+      if (geom.type === "Polygon" || geom.type === "MultiLineString") return geom.coordinates.flat();
+      if (geom.type === "MultiPolygon") return geom.coordinates.flat(2);
+      return [];
+    }
+  </script>
+</body>
+</html>
