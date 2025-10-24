@@ -1,141 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anass Marzouki | Researcher</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
-      background: #0f1724;
-      color: #222;
-      margin: 0;
-      line-height: 1.7;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Anass Marzouki | Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --accent: #d0d612;
+    --bg: #0f1724;
+    --muted: rgba(255,255,255,0.72);
+  }
 
-    header {
-      background: linear-gradient(135deg, #2e3a59, #1e2a44);
-      color: white;
-      text-align: center;
-      padding: 3rem 1rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: "Inter", sans-serif;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(208,214,18,0.06), transparent 6%),
+      radial-gradient(1200px 600px at 90% 90%, rgba(208,214,18,0.03), transparent 8%),
+      var(--bg);
+    color:#eef2ff;
+    line-height:1.7;
+    padding-bottom:50px;
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.4rem;
-      font-weight: 600;
-    }
+  header{
+    text-align:center;
+    padding:3rem 1rem 2.5rem;
+    background:rgba(255,255,255,0.02);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    backdrop-filter:blur(8px) saturate(120%);
+    box-shadow:0 6px 24px rgba(0,0,0,0.4);
+  }
 
-    header p {
-      margin: 0.8rem 0 0;
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
+  header h1{
+    font-size:clamp(26px,5vw,42px);
+    color:#fff;
+    margin-bottom:10px;
+  }
 
-    nav {
-      text-align: center;
-      background: #e0e0e0;
-      padding: 0.75rem;
-      border-bottom: 1px solid #ccc;
-    }
+  header p{
+    color:var(--muted);
+    font-size:1.05rem;
+  }
 
-    nav a {
-      color: #1e3a8a;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: 600;
-    }
+  nav{
+    text-align:center;
+    background:rgba(255,255,255,0.02);
+    padding:1rem;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(6px);
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-      color: #0f172a;
-    }
+  nav a{
+    color:var(--muted);
+    text-decoration:none;
+    margin:0 1.2rem;
+    font-weight:600;
+    transition:color .2s ease;
+  }
+  nav a:hover{
+    color:var(--accent);
+  }
 
-    section {
-      max-width: 850px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+  section{
+    max-width:900px;
+    margin:3rem auto;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:18px;
+    padding:2.5rem;
+    box-shadow:0 10px 30px rgba(2,6,23,0.6);
+    backdrop-filter:blur(8px) saturate(120%);
+  }
 
-    h2 {
-      color: #1e3a8a;
-      border-bottom: 2px solid #3b82f6;
-      padding-bottom: 0.3rem;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+  h2{
+    color:var(--accent);
+    font-size:1.6rem;
+    font-weight:600;
+    margin-bottom:1rem;
+    border-bottom:2px solid rgba(208,214,18,0.25);
+    padding-bottom:0.4rem;
+  }
 
-    .dropdown-icon {
-      transition: transform 0.3s ease;
-      font-size: 1.2rem;
-    }
+  p{
+    color:var(--muted);
+    font-size:1rem;
+    line-height:1.8;
+  }
 
-    .rotate {
-      transform: rotate(90deg);
-    }
+  footer{
+    text-align:center;
+    color:rgba(255,255,255,0.55);
+    padding:2rem 1rem;
+    margin-top:2.5rem;
+    font-size:0.9rem;
+  }
 
-    .dropdown-content {
-      display: none;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
+  footer a{
+    color:var(--accent);
+    text-decoration:none;
+  }
+  footer a:hover{
+    text-decoration:underline;
+  }
 
-    .project {
-      background: white;
-      border: 1px solid #ddd;
-      padding: 1.2rem;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      transition: box-shadow 0.2s ease-in-out;
-    }
+  /* Optional subtle entry animation */
+  section, header, nav, footer {
+    animation: fadeInUp .8s ease forwards;
+    opacity: 0;
+  }
 
-    .project:hover {
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .project h3 {
-      margin-top: 0;
-      color: #1e3a8a;
-    }
-
-    .project a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .project a:hover {
-      text-decoration: underline;
-    }
-
-    ul {
-      padding-left: 1.2rem;
-    }
-
-    footer {
-      text-align: center;
-      background: #1e2a44;
-      color: #ccc;
-      padding: 1.5rem 0;
-      margin-top: 3rem;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: #90cdf4;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  @keyframes fadeInUp {
+    from {opacity:0; transform:translateY(12px);}
+    to {opacity:1; transform:translateY(0);}
+  }
+</style>
 </head>
 <body>
 
@@ -154,25 +135,28 @@
 <section id="about">
   <h2>Moroccan Anti-Atlas Mountain Ecology</h2>
   <p>
-The Moroccan Anti-Atlas Mountain Ecology project is a joint research initiative between the Université Internationale de Rabat (UIR) 
+    The Moroccan Anti-Atlas Mountain Ecology project is a joint research initiative between the Université Internationale de Rabat (UIR) 
     and the University of California, Los Angeles (UCLA). The project brings together an interdisciplinary team of archaeologists, anthropologists, 
     and geographers from Morocco and the United States to study the unique agricultural terrace systems of the Anti-Atlas Mountains — an extraordinary
     landscape shaped by centuries of human adaptation and ecological balance.
-
-For hundreds of years, local communities in the Anti-Atlas have engineered and maintained intricate networks of stone terraces, allowing sustainable
+  </p>
+  <p>
+    For hundreds of years, local communities in the Anti-Atlas have engineered and maintained intricate networks of stone terraces, allowing sustainable
     agriculture to thrive in a challenging semi-arid environment. These terraces not only reflect the region’s deep cultural and ecological heritage
     but also offer invaluable lessons in resilience, water management, and landscape conservation. The project seeks to document how these systems were
     built, how they endured through time, and what factors have contributed to their preservation.
-
-By combining archaeological fieldwork, geospatial mapping, and ethnographic research, the team aims to build a comprehensive understanding of the
+  </p>
+  <p>
+    By combining archaeological fieldwork, geospatial mapping, and ethnographic research, the team aims to build a comprehensive understanding of the
     environmental, social, and historical dimensions that sustain terrace agriculture. The research also integrates modern tools such as remote sensing,
     GIS analysis, and ecological surveys to assess current challenges posed by climate change, depopulation, and land-use shifts.
-
-Ultimately, the Moroccan Anti-Atlas Mountain Ecology project is about safeguarding a living heritage. By blending traditional knowledge with 
+  </p>
+  <p>
+    Ultimately, the Moroccan Anti-Atlas Mountain Ecology project is about safeguarding a living heritage. By blending traditional knowledge with 
     modern scientific approaches, the collaboration between UIR and UCLA seeks to promote sustainable strategies for preserving these remarkable 
     landscapes — ensuring that the wisdom of past generations continues to guide future ones in caring for Morocco’s mountain ecosystems.
   </p>
-  
+</section>
 
 <footer>
   © <span id="year"></span> Anass Marzouki |
@@ -181,19 +165,6 @@ Ultimately, the Moroccan Anti-Atlas Mountain Ecology project is about safeguardi
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  function toggleDropdown(id, element) {
-    const content = document.getElementById(id);
-    const icon = element.querySelector(".dropdown-icon");
-    const isVisible = content.style.display === "block";
-    document.querySelectorAll(".dropdown-content").forEach(div => div.style.display = "none");
-    document.querySelectorAll(".dropdown-icon").forEach(i => i.classList.remove("rotate"));
-
-    if (!isVisible) {
-      content.style.display = "block";
-      icon.classList.add("rotate");
-    }
-  }
 </script>
 
 </body>
