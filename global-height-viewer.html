@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colored DEM Map | Anass Marzouki</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+:root { --gold:#d0d612; --dark1:#0f1724; --dark2:#2e3a59; }
+body { font-family:"Poppins",sans-serif; background:linear-gradient(135deg,var(--dark1),var(--dark2)); color:#f5f5f5; margin:0; line-height:1.7; }
+header{text-align:center; padding:3rem 1rem; border-bottom:2px solid var(--gold);}
+header h1{margin:0; font-size:2.6rem; color:var(--gold); font-weight:600;}
+header p{margin-top:.7rem; color:#ddd; font-size:1.1rem;}
+nav{text-align:center; background:rgba(255,255,255,0.08); padding:.9rem; border-bottom:1px solid rgba(255,255,255,.15);}
+nav a{color:var(--gold); text-decoration:none; margin:0 1.2rem; font-weight:600;}
+nav a:hover{color:#fff;}
+section{max-width:1000px; margin:2.5rem auto; padding:1.5rem; background:rgba(255,255,255,0.06); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.25);}
+h2{color:var(--gold); border-bottom:2px solid var(--gold); padding-bottom:.4rem; font-size:1.6rem; margin:1.5rem 0 1rem; text-align:center; text-transform:uppercase;}
+#map{height:600px; width:100%; border-radius:10px; margin-top:1rem;}
+#status{margin-top:1rem; text-align:center; font-style:italic; color:#ccc;}
+footer{text-align:center; background:var(--dark1); color:#ccc; padding:1.8rem 0; margin-top:3rem; font-size:.9rem;}
+footer a{color:var(--gold); text-decoration:none; font-weight:600;}
+footer a:hover{text-decoration:underline;color:#fff;}
+</style>
+</head>
+<body>
+<header>
+<h1>Anass Marzouki</h1>
+<p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+</header>
+<nav>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Projects</a>
+<a href="#">Publications</a>
+<a href="#">GeoTools</a>
+</nav>
+<section>
+<h2>Global Colored DEM Map</h2>
+<p style="text-align:center">Click anywhere to see elevation in meters.</p>
+<div id="map"></div>
+<div id="status">Click on the map to get elevation.</div>
+</section>
+<footer>
+© <span id="year"></span> Anass Marzouki | <a href="#">anassmarzouki.github.io</a>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Initialize map
+const map = L.map('map').setView([20,0],2);
+
+// Base layer: OpenStreetMap
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom:19,
+  attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Overlay for roads/cities/boundaries (semi-transparent)
+const overlay = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'&copy; OpenStreetMap contributors',
+  opacity:0.5
+}).addTo(map);
+
+// Colored DEM Layer using Terrarium tiles
+const demLayer = L.gridLayer({
+  tileSize:256,
+  crossOrigin:true,
+  createTile(coords, done){
+    const tile = document.createElement('canvas');
+    tile.width = tile.height = 256;
+    const ctx = tile.getContext('2d');
+    const img = new Image();
+    img.crossOrigin='Anonymous';
+    img.src=`https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${coords.z}/${coords.x}/${coords.y}.png`;
+    img.onload=function(){
+      ctx.drawImage(img,0,0);
+      const data = ctx.getImageData(0,0,256,256);
+      for(let i=0;i<data.data.length;i+=4){
+        const r = data.data[i], g = data.data[i+1], b = data.data[i+2];
+        let e = (r*256 + g + b/256) - 32768;
+        if(e<0) e = 0; // clamp ocean
+        const color = elevationToColor(e);
+        data.data[i] = color[0];
+        data.data[i+1] = color[1];
+        data.data[i+2] = color[2];
+      }
+      ctx.putImageData(data,0,0);
+      done(null, tile);
+    };
+    img.onerror=function(){ done(null, tile); };
+    return tile;
+  }
+}).addTo(map);
+
+// Elevation color ramp
+function elevationToColor(e){
+  if(e<=0) return [0,105,148];      // ocean blue
+  if(e<200) return [0,255,0];       // lowland green
+  if(e<500) return [173,255,47];    // hills light green
+  if(e<1000) return [255,255,0];    // hills yellow
+  if(e<2000) return [255,165,0];    // mountains orange
+  if(e<4000) return [139,69,19];    // high mountains brown
+  return [255,255,255];             // snow caps
+}
+
+// Canvas for reading pixel value
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+
+function getElevationFromRGB(r,g,b){
+  let e = (r*256 + g + b/256) - 32768;
+  return e<0 ? 0 : e; // clamp ocean
+}
+
+// Click event to read elevation
+map.on('click', function(e){
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
+  const zoom = map.getZoom();
+  const n = Math.pow(2,zoom);
+  const xTile = Math.floor((lng+180)/360*n);
+  const yTile = Math.floor((1 - Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*n);
+  const url = `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${zoom}/${xTile}/${yTile}.png`;
+
+  const img = new Image();
+  img.crossOrigin='Anonymous';
+  img.src = url;
+  img.onload=function(){
+    canvas.width=img.width; canvas.height=img.height;
+    ctx.drawImage(img,0,0);
+    const pixelX = Math.floor(((lng+180)/360*n - xTile)*256);
+    const pixelY = Math.floor(((1 - Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*n - yTile)*256);
+    const p = ctx.getImageData(pixelX,pixelY,1,1).data;
+    const elevation = getElevationFromRGB(p[0],p[1],p[2]).toFixed(1);
+    L.popup().setLatLng(e.latlng).setContent(`<b>Elevation:</b> ${elevation} m`).openOn(map);
+  };
+});
+</script>
+</body>
+</html>
