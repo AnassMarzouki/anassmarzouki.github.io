@@ -22,6 +22,15 @@ h2{color:var(--gold); border-bottom:2px solid var(--gold); padding-bottom:.4rem;
 footer{text-align:center; background:var(--dark1); color:#ccc; padding:1.8rem 0; margin-top:3rem; font-size:.9rem;}
 footer a{color:var(--gold); text-decoration:none; font-weight:600;}
 footer a:hover{text-decoration:underline;color:#fff;}
+
+  nav {
+  position: relative;
+  z-index: 1000; /* make sure it's above the map */
+}
+  #map {
+  z-index: 1;
+}
+
 </style>
 </head>
 <body>
@@ -142,3 +151,4 @@ map.on('click', function(e){
 </script>
 </body>
 </html>
+
