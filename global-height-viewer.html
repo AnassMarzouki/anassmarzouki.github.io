@@ -6,31 +6,27 @@
 <title>Colored DEM Map | Anass Marzouki</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 <style>
 :root { --gold:#d0d612; --dark1:#0f1724; --dark2:#2e3a59; }
 body { font-family:"Poppins",sans-serif; background:linear-gradient(135deg,var(--dark1),var(--dark2)); color:#f5f5f5; margin:0; line-height:1.7; }
 header{text-align:center; padding:3rem 1rem; border-bottom:2px solid var(--gold);}
 header h1{margin:0; font-size:2.6rem; color:var(--gold); font-weight:600;}
 header p{margin-top:.7rem; color:#ddd; font-size:1.1rem;}
-nav{text-align:center; background:rgba(255,255,255,0.08); padding:.9rem; border-bottom:1px solid rgba(255,255,255,.15);}
-nav a{color:var(--gold); text-decoration:none; margin:0 1.2rem; font-weight:600;}
+nav{text-align:center; background:rgba(255,255,255,0.08); padding:.9rem; border-bottom:1px solid rgba(255,255,255,.15); position:relative; z-index:10000;}
+nav a{color:var(--gold); text-decoration:none; margin:0 1.2rem; font-weight:600; position:relative; z-index:10001;}
 nav a:hover{color:#fff;}
 section{max-width:1000px; margin:2.5rem auto; padding:1.5rem; background:rgba(255,255,255,0.06); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.25);}
 h2{color:var(--gold); border-bottom:2px solid var(--gold); padding-bottom:.4rem; font-size:1.6rem; margin:1.5rem 0 1rem; text-align:center; text-transform:uppercase;}
-#map{height:600px; width:100%; border-radius:10px; margin-top:1rem;}
+#map-container { position: relative; pointer-events: auto; } /* only map captures pointer events */
+#map{height:600px; width:100%; border-radius:10px; margin-top:1rem; z-index:1; position:relative;}
 #status{margin-top:1rem; text-align:center; font-style:italic; color:#ccc;}
 footer{text-align:center; background:var(--dark1); color:#ccc; padding:1.8rem 0; margin-top:3rem; font-size:.9rem;}
 footer a{color:var(--gold); text-decoration:none; font-weight:600;}
 footer a:hover{text-decoration:underline;color:#fff;}
-
-  nav {
-  position: relative;
-  z-index: 1000; /* make sure it's above the map */
-}
-  #map {
-  z-index: 1;
-}
-
 </style>
 </head>
 <body>
@@ -39,20 +35,22 @@ footer a:hover{text-decoration:underline;color:#fff;}
 <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
 </header>
 <nav>
-<a href="#">Home</a>
-<a href="#">About</a>
-<a href="#">Projects</a>
-<a href="#">Publications</a>
-<a href="#">GeoTools</a>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="projects.html">Projects</a>
+<a href="publications.html">Publications</a>
+<a href="geotools.html">GeoTools</a>
 </nav>
 <section>
 <h2>Global Colored DEM Map</h2>
 <p style="text-align:center">Click anywhere to see elevation in meters.</p>
-<div id="map"></div>
+<div id="map-container">
+  <div id="map"></div>
+</div>
 <div id="status">Click on the map to get elevation.</div>
 </section>
 <footer>
-© <span id="year"></span> Anass Marzouki | <a href="#">anassmarzouki.github.io</a>
+© <span id="year"></span> Anass Marzouki | <a href="https://anassmarzouki.github.io">anassmarzouki.github.io</a>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -151,4 +149,3 @@ map.on('click', function(e){
 </script>
 </body>
 </html>
-
