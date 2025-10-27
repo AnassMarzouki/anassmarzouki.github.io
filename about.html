@@ -1,142 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Page Under Construction</title>
-<style>
-  :root{
-    --accent: #d0d612; /* your requested hex color */
-    --bg: #0f1724;
-    --muted: rgba(255,255,255,0.72);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anass Marzouki | Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+  <style>
+    :root {
+      --gold: #d0d612;
+      --dark1: #0f1724;
+      --dark2: #2e3a59;
+    }
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background:
-      radial-gradient(1200px 600px at 10% 10%, rgba(208,214,18,0.06), transparent 6%),
-      radial-gradient(1200px 600px at 90% 90%, rgba(208,214,18,0.03), transparent 8%),
-      var(--bg);
-    color: #eef2ff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:32px;
-  }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--dark1), var(--dark2));
+      color: #f5f5f5;
+      margin: 0;
+      line-height: 1.7;
+      animation: fadeIn 1s ease;
+    }
 
-  .wrapper{
-    max-width:800px;
-    background:rgba(255,255,255,0.02);
-    border-radius:18px;
-    padding:40px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(2,6,23,0.6);
-    border:1px solid rgba(255,255,255,0.05);
-    backdrop-filter:blur(8px) saturate(120%);
-  }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-  h1{
-    font-size: clamp(26px, 5vw, 42px);
-    color:#fff;
-    margin-bottom:16px;
-  }
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom: 2px solid var(--gold);
+    }
 
-  p{
-    color:var(--muted);
-    font-size:16px;
-    line-height:1.6;
-    margin-bottom:28px;
-  }
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
 
-  .tape{
-    display:inline-block;
-    margin-bottom:24px;
-    padding:8px 18px;
-    border-radius:8px;
-    font-weight:700;
-    letter-spacing:2px;
-    background: repeating-linear-gradient(
-      135deg,
-      rgba(0,0,0,0.18) 0 12px,
-      rgba(0,0,0,0.06) 12px 24px
-    );
-    color:#fff;
-    position:relative;
-    overflow:hidden;
-  }
+    header p {
+      margin-top: 0.7rem;
+      color: #ddd;
+      font-size: 1.1rem;
+    }
 
-  .tape:before{
-    content:"";
-    position:absolute;
-    left:-40%;
-    top:0;
-    height:100%;
-    width:40%;
-    transform:skewX(-12deg);
-    background: linear-gradient(90deg, rgba(208,214,18,0.08), rgba(208,214,18,0.25));
-    animation: slideTape 2.6s linear infinite;
-  }
+    nav {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-  @keyframes slideTape{
-    to{left:120%}
-  }
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 600;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
 
-  .illustration{
-    width:220px;
-    margin:0 auto 28px;
-    opacity:0.95;
-  }
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px var(--gold);
+    }
 
-  .btn{
-    display:inline-block;
-    margin-top:8px;
-    padding:12px 26px;
-    font-size:16px;
-    font-weight:600;
-    color:#071014;
-    background:linear-gradient(90deg, var(--accent), #c3d11a88);
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    box-shadow:0 6px 18px rgba(208,214,18,0.12);
-    transition:transform .2s ease, box-shadow .2s ease;
-    text-decoration:none;
-  }
-  .btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 12px 30px rgba(208,214,18,0.16);
-  }
+    section {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
 
-  footer{
-    font-size:13px;
-    color:rgba(255,255,255,0.55);
-    margin-top:32px;
-  }
-</style>
+    h2 {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.4rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .publication {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 15px 0;
+    }
+
+    .publication button {
+      background: none;
+      border: none;
+      color: #fff;
+      text-align: left;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .publication button:hover {
+      color: var(--gold);
+      text-shadow: 0 0 6px var(--gold);
+    }
+
+    .abstract {
+      max-height: 0;
+      overflow: hidden;
+      margin-top: 0;
+      padding: 0 10px;
+      background: rgba(255, 255, 255, 0.07);
+      border-left: 3px solid var(--gold);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: all 0.5s ease;
+    }
+
+    .abstract.open {
+      margin-top: 8px;
+      padding: 10px;
+      max-height: 2000px;
+    }
+
+    .abstract a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .abstract a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      background: var(--dark1);
+      color: #ccc;
+      padding: 1.8rem 0;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
-  <main class="wrapper">
-    <div class="tape">UNDER CONSTRUCTION</div>
+  <header>
+    <h1>Anass Marzouki</h1>
+    <p>Assistant Professor | Geomatics Specialist | Université Internationale de Rabat</p>
+  </header>
 
-    <!-- Simple SVG illustration -->
-    <svg class="illustration" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-      <path fill="var(--accent)" d="M28 18h8v20h-8zM28 42h8v4h-8z"/>
-    </svg>
+  <nav>
+    <a href="https://anassmarzouki.github.io/">Home</a>
+    <a href="https://anassmarzouki.github.io/about.html">About</a>
+    <a href="https://anassmarzouki.github.io/projects.html">Projects</a>
+    <a href="https://anassmarzouki.github.io/publications.html">Publications</a>
+    <a href="https://anassmarzouki.github.io/geotools.html">GeoTools</a>
+  </nav>
 
-    <h1>We’re Building Something Great</h1>
+<section>
+  <h2>About</h2>
+
+  
+    <img src="profile.jpg" alt="Profile Picture" 
+         style="float: left; width: 180px; height: 180px; object-fit: cover; border-radius: 10px; margin: 0 20px 10px 0; background-color: #444;">
+    
     <p>
-      This page is currently being prepared. Our team is setting up the final details before it goes live.  
-      Please check back soon — it will be worth the wait!
+      <b>Hello!</b> I'm a passionate <b>Geoscientist</b> and <b>Assistant Professor</b> at the 
+      <i style="color:#cccccc;">Université Internationale de Rabat (UIR)</i>, blending a strong academic background with an insatiable curiosity for technology, creativity, and exploration.
     </p>
 
-    <!-- Homepage button -->
-    <a href="https://anassmarzouki.github.io/" class="btn">Back to Homepage</a>
+    <blockquote style="font-style: italic; color: #cccccc; border-left: 4px solid #66ffe0; padding-left: 10px; margin: 15px 0;">
+      “From the depths of the Earth to the edge of digital innovation — I explore it all.”
+    </blockquote>
 
-    <footer>© 2025 Anass Marzouki. All rights reserved.</footer>
-  </main>
+    <h3 style="color: #cccccc;">🎓 Academic Journey</h3>
+    <p>
+      My academic path began in <b>2010</b> at <i style="color:#cccccc;">Mohammed I University (Oujda)</i> where I pursued studies in <b>Earth and Universe Sciences</b>, earning a 
+      <b>Bachelor’s degree in Geology</b> in <b>2013</b>.  
+      The following year, I expanded my horizons at the <i style="color:#cccccc;">Faculty of Letters and Human Sciences</i> in Oujda, completing a <b>Bachelor’s degree in Geomatics</b> (2014).
+    </p>
+
+    <p>
+      In <b>2014</b>, I completed a research internship at <i style="color:#cccccc;">Geomatic Company (Casablanca)</i>, focusing on <i style="color:#cccccc;">desertification in the Moroccan Eastern High Atlas</i> using ESRI tools.  
+      My passion for geology and technology then led me to <i style="color:#cccccc;">Sidi Mohammed Ben Abdellah University (Fès)</i>, where I earned a <b>Master’s degree in Geosciences and Mineral Resources</b> (2016).
+    </p>
+
+    <p>
+      From <b>2017 to 2023</b>, I delved deeper into research, completing my <b>Ph.D. in Geosciences</b> at <i style="color:#cccccc;">Dhar El Mahraz Faculty of Sciences</i>.  
+      My thesis explored the <i style="color:#cccccc;">integration of multisource remote sensing data and object-oriented programming to accelerate geological mapping</i> across the regions of <b>Figuig, Ain Chair, and Tiwit</b> (Morocco).
+    </p>
+
+    <p>
+      In <b>2020</b>, I joined the <i style="color:#cccccc;">Office National des Hydrocarbures et des Mines (ONHYM)</i> for a two-month research internship, gaining valuable field and applied experience.  
+      In <b>May 2025</b>, I proudly became part of the <i style="color:#cccccc;">Université Internationale de Rabat (UIR)</i> as an <b>Assistant Professor</b> and researcher, contributing to projects related to the <b>Moroccan Anti-Atlas</b>.
+    </p>
+
+    <h3 style="color: #cccccc;">💡 Beyond Academia</h3>
+    <p>
+      Outside the lab, I’m an <b>enthusiastic educator</b> who loves inspiring young minds — I’ve taught <i style="color:#cccccc;">DIY Arduino projects for kids</i> at the 
+      <i style="color:#cccccc;">Association Orientale de la Robotique (AOR)</i> and proudly contributed to our team’s victory at the <b>National Robotics Competition (2016)</b> in Rabat.
+    </p>
+
+    <p>
+      When I’m not teaching or researching, you’ll likely find me <i style="color:#cccccc;">tinkering with electronics</i>, crafting <b>DIY LED neon signs</b>, developing <b>web apps</b> using 
+      <b>HTML, JavaScript, and React</b>, or diving into <i style="color:#cccccc;">photo and video editing</i>.
+    </p>
+
+    <p>
+      Off the screen and out in the wild, I’m a <b>motorcycle enthusiast</b> who loves exploring Morocco’s breathtaking landscapes on two wheels.  
+      And when the day winds down, I find harmony in <b>playing guitar and piano</b> — because creativity knows no boundaries.
+    </p>
+
+    <hr style="margin-top: 40px; border: none; height: 2px; background: linear-gradient(to right, #66ffe0, #0099cc);">
+</section>
+
+
+
+  </section>
+
+  <footer>
+    © <span id="year"></span> Anass Marzouki |
+    <a href="https://anassmarzouki.github.io" target="_blank">anassmarzouki.github.io</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const buttons = document.querySelectorAll(".publication button");
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const abstract = button.nextElementSibling;
+        document.querySelectorAll(".abstract").forEach(a => {
+          if (a !== abstract) a.classList.remove("open");
+        });
+        abstract.classList.toggle("open");
+      });
+    });
+  </script>
 </body>
 </html>
-
